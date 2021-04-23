@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 	"os/exec"
 	"path/filepath"
 	"runtime"
@@ -14,11 +15,16 @@ import (
 const outFormat = "mp4"
 
 func main() {
+	workingDir, err := os.Getwd()
+	if err != nil {
+		panic(err)
+	}
+
 	ffmpegPath := "ffmpeg"
-	_, err := exec.LookPath(ffmpegPath)
+	_, err = exec.LookPath(ffmpegPath)
 	if err != nil {
 		if runtime.GOOS == "windows" {
-			ffmpegPath = "./deps/ffmpeg-win64/bin/ffmpeg.exe"
+			ffmpegPath = filepath.Clean(filepath.Join(workingDir, "deps/ffmpeg-win64/bin/ffmpeg.exe"))
 		} else {
 			ffmpegPath = "."
 		}
@@ -42,7 +48,7 @@ func main() {
 	outFile := strings.TrimSuffix(filename, filepath.Ext(filename))
 	outFile = strings.Join([]string{outFile, outFormat}, ".")
 
-	err = fluentffmpeg.NewCommand("").
+	err = fluentffmpeg.NewCommand(ffmpegPath).
 		InputPath(filename).
 		OutputFormat(outFormat).
 		OutputPath(outFile).
