@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"path/filepath"
 	"strings"
 
@@ -31,6 +32,6 @@ func main() {
 		Overwrite(true).
 		Run()
 	if err != nil {
-		panic(err.Error())
+		dialog.Message(err.Error()).Title(fmt.Sprintf("error converting %s", filename)).Info()
 	}
 }
