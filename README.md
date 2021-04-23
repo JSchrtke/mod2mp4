@@ -2,4 +2,4 @@
 A simple program to convert .MOD files to .mp4
 
 ## Prerequisites
-[ffmpeg install]("https://www.ffmpeg.org/download.html")
+[ffmpeg install](https://www.ffmpeg.org/download.html)
