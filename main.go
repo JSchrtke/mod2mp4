@@ -25,10 +25,11 @@ func main() {
 	if err != nil {
 		if runtime.GOOS == "windows" {
 			ffmpegPath = filepath.Clean(filepath.Join(workingDir, "deps/ffmpeg-win64/bin/ffmpeg.exe"))
+		} else if runtime.GOOS == "linux" {
+			ffmpegPath = "deps/ffmpeg-linux64/ffmpeg"
 		} else {
-			ffmpegPath = "."
+			ffmpegPath = "ffmpeg"
 		}
-		// check if there are bundled versions
 		_, err := exec.LookPath(ffmpegPath)
 		if err != nil {
 			dialog.Message("Missing ffmpeg installation").Title("Error").Info()
