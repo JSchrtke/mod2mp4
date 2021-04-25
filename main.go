@@ -19,7 +19,7 @@ func main() {
 	if err != nil {
 		dialog.Message(fmt.Sprintf("Missing ffmpeg installation: %s", err.Error())).
 			Title("Error").
-			Info()
+			Error()
 	}
 
 	filename, err := dialog.File().Filter("MOD video file", "MOD").Load()
@@ -48,7 +48,7 @@ func main() {
 	if err != nil {
 		dialog.Message(err.Error()).
 			Title(fmt.Sprintf("error converting %s", filename)).
-			Info()
+			Error()
 	}
 }
 
